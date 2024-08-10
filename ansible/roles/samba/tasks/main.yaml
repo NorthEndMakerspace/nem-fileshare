@@ -41,6 +41,8 @@
     owner: root
     group: root
     mode: '0755'
+  notify:
+        - Restart smbd
 
 - name: Set permissions on share root
   ansible.builtin.file:
@@ -57,6 +59,8 @@
     fstype: ext4
     opts: rw,relatime
     state: mounted
+  notify:
+        - Restart smbd
 
 - name: Copy share README
   ansible.builtin.copy:
@@ -77,5 +81,5 @@
 - name: Enable Samba service
   ansible.builtin.service:
     name: smbd
-    state: restarted
+    state: started
     enabled: yes

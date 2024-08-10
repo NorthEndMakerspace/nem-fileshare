@@ -19,4 +19,5 @@ python3 -m venv .venv
 pip install -U pip
 pip install -U ansible
 ansible-playbook -i ansible/inventory.yaml ansible/configure.yaml
+deactivate
 ```
