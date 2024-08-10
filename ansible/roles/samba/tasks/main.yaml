@@ -76,6 +76,6 @@
 
 - name: Enable Samba service
   ansible.builtin.service:
-    name: ansible
-    state: started
+    name: smbd
+    state: restarted
     enabled: yes
