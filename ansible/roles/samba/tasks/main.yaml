@@ -11,6 +11,7 @@
     state: present
     name:
       - samba
+      - wsdd
 
 - name: Configure smb.conf
   ansible.builtin.copy:
