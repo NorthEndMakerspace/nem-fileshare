@@ -1,16 +1,5 @@
 ---
 
-- name: Remove unecessary packages
-  ansible.builtin.apt:
-    state: absent
-    name:
-      - pi-bluetooth
-      - bluez
-      - bluez-firmware
-      - alsa-utils
-      - alsa-topology-conf
-      - alsa-ucm-conf
-
 - name: Patch server
   ansible.builtin.apt:
     autoremove: true
