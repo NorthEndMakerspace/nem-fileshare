@@ -3,7 +3,7 @@
 Run this in the project base directory.
 
 ```bash
-# Clone/update the repo for NEM-OctoPi
+# Clone/update the repo
 if [[ ! -d nem-fileshare ]]; then
   git clone https://github.com/mikeymakesit/nem-filesharei.git
   cd nem-fileshare

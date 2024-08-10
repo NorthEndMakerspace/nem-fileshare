@@ -17,10 +17,12 @@
     upgrade: yes
     update_cache: yes
 
-- name: Install Samba
+- name: Install packages
   ansible.builtin.apt:
-    name: samba
     state: present
+    name:
+      - git
+      - samba
 
 - name: Configure smb.conf
   ansible.builtin.copy:
