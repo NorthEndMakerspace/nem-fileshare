@@ -3,9 +3,11 @@
 Run this in the project base directory.
 
 ```bash
+sudo apt install -y git
+
 # Clone/update the repo
 if [[ ! -d nem-fileshare ]]; then
-  git clone https://github.com/mikeymakesit/nem-filesharei.git
+  git clone https://github.com/mikeymakesit/nem-fileshare.git
   cd nem-fileshare
 else
   cd nem-fileshare

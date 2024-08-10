@@ -21,7 +21,6 @@
   ansible.builtin.apt:
     state: present
     name:
-      - git
       - samba
 
 - name: Configure smb.conf
