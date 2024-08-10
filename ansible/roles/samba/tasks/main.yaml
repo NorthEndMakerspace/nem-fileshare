@@ -1,0 +1,80 @@
+---
+
+- name: Remove unecessary packages
+  ansible.builtin.apt:
+    state: absent
+    name:
+      - pi-bluetooth
+      - bluez
+      - bluez-firmware
+      - alsa-utils
+      - alsa-topology-conf
+      - alsa-ucm-conf
+
+- name: Patch server
+  ansible.builtin.apt:
+    autoremove: true
+    upgrade: yes
+    update_cache: yes
+
+- name: Install Samba
+  ansible.builtin.apt:
+    name: samba
+    state: present
+
+- name: Configure smb.conf
+  ansible.builtin.copy:
+    src: files/smb.conf
+    dest: /etc/samba/smb.conf
+    owner: root
+    group: root
+    mode: '0644'
+    validate: /usr/bin/testparm -s %s
+  notify:
+        - Restart smbd
+
+- name: Create USB drive mount folder
+  ansible.builtin.file:
+    path: /mnt/share
+    state: directory
+    owner: root
+    group: root
+    mode: '0755'
+
+- name: Set permissions on share root
+  ansible.builtin.file:
+    path: /mnt/share
+    state: directory
+    owner: nobody
+    group: nogroup
+    mode: '2775'
+
+- name: Add USB drive to /etc/fstab and mount it
+  ansible.posix.mount:
+    path: /mnt/share
+    src: /dev/sda1
+    fstype: ext4
+    opts: rw,relatime
+    state: mounted
+
+- name: Copy share README
+  ansible.builtin.copy:
+    src: files/SHARE_README.txt
+    dest: /mnt/share/README.txt
+    owner: nobody
+    group: nogroup
+    mode: '0600'
+
+- name: Create share base directories if any
+  ansible.builtin.file:
+    path: /mnt/share/NEM
+    state: directory
+    owner: nobody
+    group: nogroup
+    mode: '2755'
+
+- name: Enable Samba service
+  ansible.builtin.service:
+    name: ansible
+    state: started
+    enabled: yes
