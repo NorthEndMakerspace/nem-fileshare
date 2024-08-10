@@ -1,0 +1,7 @@
+---
+
+- name: Configure file share
+  hosts: localhost
+  become: true
+  roles:
+    - samba
