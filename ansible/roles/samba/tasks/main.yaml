@@ -38,19 +38,8 @@
   ansible.builtin.file:
     path: /mnt/share
     state: directory
-    owner: root
-    group: root
-    mode: '0755'
   notify:
         - Restart smbd
-
-- name: Set permissions on share root
-  ansible.builtin.file:
-    path: /mnt/share
-    state: directory
-    owner: nobody
-    group: nogroup
-    mode: '2775'
 
 - name: Add USB drive to /etc/fstab and mount it
   ansible.posix.mount:
@@ -61,6 +50,14 @@
     state: mounted
   notify:
         - Restart smbd
+
+- name: Set permissions on share root
+  ansible.builtin.file:
+    path: /mnt/share
+    state: directory
+    owner: nobody
+    group: nogroup
+    mode: '2775'
 
 - name: Copy share README
   ansible.builtin.copy:
